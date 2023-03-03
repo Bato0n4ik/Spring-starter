@@ -10,6 +10,9 @@ repositories {
 }
 
 dependencies {
+
+    implementation group: 'jakarta.annotation', name: 'jakarta.annotation-api', version: '2.1.1'
+
     implementation group: 'org.springframework', name: 'spring-core', version: '6.0.5'
     implementation 'org.springframework:spring-context:6.0.5'
     implementation 'org.projectlombok:lombok:1.18.22'
