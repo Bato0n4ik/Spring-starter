@@ -7,23 +7,35 @@
                             http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+
+
+    <!--<bean class="org.springframework.context.annotation.CommonAnnotationBeanPostProcessor"/>!-->
+
     <!--<bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations" value="application.properties"/>
     </bean>!-->
 
+    <context:annotation-config/>
     <context:property-placeholder location="classpath:application.properties"/>
+
+    <bean class="org.andreev.spring.bpp.InjectBeanPostProcessor"/>
 
     <bean class="org.andreev.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
     <bean class="org.andreev.spring.bfpp.LogBeanFactoryPostProcessor"/>
+    <bean class="org.andreev.spring.bpp.TransactionBeanPostProcessor"/>
+    <bean class="org.andreev.spring.bpp.AuditingBeanPostProcessor"/>
+
 
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
-    <bean id="pool1" name="p1" class="org.andreev.spring.pool.ConnectionPool"
+    <bean id="pool1" name="p1" class="org.andreev.spring.datsbase.pool.ConnectionPool">
+          <!--
           init-method="init"
           destroy-method="destroy"
           scope="singleton" >
+          !-->
         <constructor-arg name="userName" value="${db.username}" type="java.lang.String"/>
         <constructor-arg name="poolSize" value="${db.pool.size}" type="java.lang.Integer"/>
         <constructor-arg name="args" type="java.util.List">
@@ -55,7 +67,5 @@
             </map>
         </property>
     </bean>
-    <bean id="companyRepository" class="org.andreev.spring.datsbase.repository.CompanyRepository" factory-method="of">
-        <constructor-arg ref="pool1"/>
-    </bean>
+    <bean id="companyRepository" class="org.andreev.spring.datsbase.repository.CompanyRepository"/>
 </beans>

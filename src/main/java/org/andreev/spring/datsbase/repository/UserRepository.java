@@ -1,6 +1,6 @@
 package org.andreev.spring.datsbase.repository;
 
-import org.andreev.spring.pool.ConnectionPool;
+import org.andreev.spring.datsbase.pool.ConnectionPool;
 
 public class UserRepository {
     private final ConnectionPool connectionPool;
