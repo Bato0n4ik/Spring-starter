@@ -15,57 +15,38 @@
         <property name="locations" value="application.properties"/>
     </bean>!-->
 
-    <context:annotation-config/>
-    <context:property-placeholder location="classpath:application.properties"/>
+    <!--<context:annotation-config/>!-->
 
-    <bean class="org.andreev.spring.bpp.InjectBeanPostProcessor"/>
+    <!--
+    <context:component-scan base-package="org.andreev.spring"
+                            resource-pattern="**/*.class"
+                            annotation-config="true"
+                            scoped-proxy="no"
+                            use-default-filters="false">
+        <context:include-filter type="assignable" expression="org.andreev.spring.datsbase.repository.CrudRepository"/>
+        <context:include-filter type="regex" expression="org\..+Repository"/>
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
 
-    <bean class="org.andreev.spring.bfpp.VerifyPropertyBeanFactoryPostProcessor"/>
-    <bean class="org.andreev.spring.bfpp.LogBeanFactoryPostProcessor"/>
-    <bean class="org.andreev.spring.bpp.TransactionBeanPostProcessor"/>
-    <bean class="org.andreev.spring.bpp.AuditingBeanPostProcessor"/>
+    </context:component-scan>
+    <context:property-placeholder location="classpath:application.properties"/> !-->
 
+
+    <!--
+          </constructor-arg>
+          <property name="properties">
+              <map>
+                  <entry key="login" value="postgres"/>
+                  <entry key="password" value="0000"/>
+                  <entry key="driver" value="#{driver.substring(3)}"/>
+                  <entry key="test" value="#{driver.length()>10}"/>
+                  <entry key="test2" value="#{driver.length()> T(Math).random() * 10}"/>
+                  <entry key="test3" value="#{'${db.hosts}'.split(',')}"/>
+              </map>
+          </property>
+      !-->
 
     <bean id="driver" class="java.lang.String">
         <constructor-arg type="java.lang.String" value="${db.driver}"/>
     </bean>
 
-    <bean id="pool1" name="p1" class="org.andreev.spring.datsbase.pool.ConnectionPool">
-          <!--
-          init-method="init"
-          destroy-method="destroy"
-          scope="singleton" >
-          !-->
-        <constructor-arg name="userName" value="${db.username}" type="java.lang.String"/>
-        <constructor-arg name="poolSize" value="${db.pool.size}" type="java.lang.Integer"/>
-        <constructor-arg name="args" type="java.util.List">
-            <list>
-                <value>--arg1=value1</value>
-                <value>--arg2=value2</value>
-                <ref bean="driver"/>
-            </list>
-        </constructor-arg>
-        <constructor-arg name="properties" type="java.util.Map">
-            <!--
-            <map>
-                <entry key="login" value="postgres"/>
-                <entry key="password" value="0000"/>
-                <entry key="driver" value-ref="driver"/>
-            </map>
-            !-->
-            <null/>
-        </constructor-arg>
-        <property name="properties">
-            <map>
-                <entry key="login" value="postgres"/>
-                <entry key="password" value="0000"/>
-                <entry key="driver" value="#{driver.substring(3)}"/>
-                <entry key="test" value="#{driver.length()>10}"/>
-                <entry key="test2" value="#{driver.length()> T(Math).random() * 10}"/>
-                <entry key="test3" value="#{'${db.hosts}'.split(',')}"/>
-                <!--<entry key="currentName" value="#{systemProperties.user.name}"/>!-->
-            </map>
-        </property>
-    </bean>
-    <bean id="companyRepository" class="org.andreev.spring.datsbase.repository.CompanyRepository"/>
 </beans>
