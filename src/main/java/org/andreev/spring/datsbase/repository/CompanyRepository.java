@@ -1,6 +1,8 @@
 package org.andreev.spring.datsbase.repository;
 
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.andreev.spring.bpp.Auditing;
 import org.andreev.spring.bpp.InjectBean;
 import org.andreev.spring.bpp.Transaction;
@@ -18,26 +20,23 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-
-@Scope(BeanDefinition.SCOPE_SINGLETON)
+@Slf4j
+@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 @Auditing
 @Transaction
 @Repository
+@RequiredArgsConstructor
 public class CompanyRepository implements CrudRepository<Integer, Company>{
 
     private final ConnectionPool pool1;
     private final List<ConnectionPool> pools;
+    @Value("${db.pool.size}")
     private final int poolSize;
 
-    public CompanyRepository(ConnectionPool pool1, List<ConnectionPool> pools, @Value("${db.pool.size}") int poolSize) {
-        this.pool1 = pool1;
-        this.pools = pools;
-        this.poolSize = poolSize;
-    }
 
     @PostConstruct
     private void init(){
-        System.out.println("init company repository!");
+        log.info("init company repository!");
     }
 
     @Override
@@ -48,7 +47,7 @@ public class CompanyRepository implements CrudRepository<Integer, Company>{
 
     @Override
     public void delete(Company entity) {
-        System.out.println("delete method");
+        log.info("delete method");
     }
 
 }

@@ -12,35 +12,26 @@ import org.springframework.stereotype.Service;
 
 @Import(WebConfiguration.class)
 @Configuration
-@PropertySource("classpath:application.properties")
-@ComponentScan(basePackages = "org.andreev.spring",
-        useDefaultFilters = false,
-        includeFilters = {
-                @ComponentScan.Filter(type= FilterType.ANNOTATION, value=Component.class),
-                @ComponentScan.Filter(type=FilterType.ASSIGNABLE_TYPE, value = CrudRepository.class),
-                @ComponentScan.Filter(type=FilterType.REGEX, pattern = "org\\..+Repository")
-        }
-)
 public class ApplicationConfiguration {
+
         @Bean
-        public ConnectionPool pool2(@Value ("${db.pool.size}") Integer poolSize,
-                                    @Value("${db.db.username}") String userName){
-                return new ConnectionPool(poolSize, userName);
+        @Scope(BeanDefinition.SCOPE_SINGLETON)
+        public ConnectionPool pool2(/*@Value("${db.db.username}") String userName*/){
+                return new ConnectionPool(/*userName*/"pool2", 20);
         }
 
         @Bean
         public ConnectionPool pool3(){
-                return new ConnectionPool(20, "test-pool");
+                return new ConnectionPool("test-pool", 20);
         }
 
         @Bean
-        @Scope(BeanDefinition.SCOPE_SINGLETON)
+        @Profile("prod|web")
         public UserRepository userRepository2(ConnectionPool pool2){
                 return new UserRepository(pool2);
         }
 
         @Bean
-        @Profile("prod")
         public UserRepository userRepository3(){
                 return new UserRepository(pool3());
         }

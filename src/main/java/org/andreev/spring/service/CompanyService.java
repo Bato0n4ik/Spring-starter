@@ -1,5 +1,6 @@
 package org.andreev.spring.service;
 
+import lombok.RequiredArgsConstructor;
 import org.andreev.spring.datsbase.entity.Company;
 import org.andreev.spring.datsbase.repository.CrudRepository;
 import org.andreev.spring.dto.CompanyReadDto;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CompanyService {
 
 
@@ -22,12 +24,6 @@ public class CompanyService {
     private final UserService userService;
     private final ApplicationEventPublisher eventPublisher;
 
-
-    public CompanyService(CrudRepository<Integer, Company> companyRepository, UserService userService, ApplicationEventPublisher eventPublisher) {
-        this.companyRepository = companyRepository;
-        this.userService = userService;
-        this.eventPublisher = eventPublisher;
-    }
 
     public Optional<CompanyReadDto> findById(Integer id){
         return companyRepository.findById(id).map(company -> {

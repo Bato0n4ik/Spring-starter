@@ -2,35 +2,37 @@ package org.andreev.spring.datsbase.pool;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.BeanDefinition;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
-
+@Slf4j
 @Component("pool1")
+@RequiredArgsConstructor
 public class ConnectionPool{
-    private final Integer poolSize;
+    @Value("${db.username}")
     private final String userName;
-    //private List<Object> args;
+    @Value("${db.pool.size}")
+    private final Integer poolSize;
 
-    //private Map<String, Object> properties;
 
-
-    public ConnectionPool(@Value("${db.pool.size}") Integer poolSize, @Value("${db.username}")String userName) {
-        this.poolSize = poolSize;
-        this.userName = userName;
-    }
 
     @PostConstruct
     private void init() {
-        System.out.println("Properties set");
+        log.info("Properties set");
     }
 
     @PreDestroy
     private void destroy() {
-        System.out.println("Clean connection pool!");
+        log.info("Clean connection pool!");
     }
 
 
