@@ -23,8 +23,25 @@ spring.profiles.active: qa
 
 logging:
   level:
-    root: WARN
+    root: INFO
     org.andreev.spring.datsbase.pool.ConnectionPool: INFO
   file:
     path: /
     name: fileYmlConfig.log
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 0000
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+        hibernate:
+          show_sql: true
+          format_sql: true
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+
+
