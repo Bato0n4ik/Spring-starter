@@ -3,6 +3,7 @@ package org.andreev.spring.bpp;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -32,6 +33,10 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
                         System.out.println("Open transaction");
                         try{
                             return method.invoke(bean,args);
+                        }
+                        catch(Exception exc){
+                            System.out.println("Rollback transaction");
+                            throw exc;
                         }
                         finally {
                             System.out.println("close transaction!");
