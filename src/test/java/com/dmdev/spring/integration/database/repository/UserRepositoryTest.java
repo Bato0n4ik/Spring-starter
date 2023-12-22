@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
+import org.springframework.test.context.jdbc.Sql;
 
 import java.time.LocalDate;
 
@@ -19,9 +20,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @IT
 @RequiredArgsConstructor
+@Sql({"classpath:sql/data.sql"})
 class UserRepositoryTest {
 
     private final UserRepository userRepository;
+
+    @Test
+    void checkBatch(){
+        var users = userRepository.findAll();
+        userRepository.updateCompanyAndRole(users);
+    }
+
+    @Test
+    void checkJdbcTemplate(){
+        var users = userRepository.findAllByCompanyIdAndRole(1, Role.USER);
+        Assertions.assertThat(users).hasSize(1);
+    }
 
     @Test
     @Commit

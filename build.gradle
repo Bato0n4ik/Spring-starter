@@ -27,6 +27,8 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
     annotationProcessor 'com.querydsl:querydsl-apt'
 
+    implementation 'com.h2database:h2'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 }
