@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="org.andreev.spring.service.CompanyServiceTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-04-18T17:56:20" hostname="DESKTOP-I2KIHUG" time="0.635">
-  <properties/>
-  <testcase name="findById()" classname="org.andreev.spring.service.CompanyServiceTest" time="0.635"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
