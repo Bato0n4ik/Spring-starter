@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,7 +23,7 @@ public class GreetingController {
     @GetMapping("/hello")
     public String hello(Model model, @ModelAttribute UserReadDto userReadDto){
 
-        model.addAttribute("user", new UserReadDto(1L, "Ivan"));
+        //model.addAttribute("user", new UserReadDto(1L, "Ivan"));
         return "greeting/hello";
     }
 
@@ -34,8 +33,6 @@ public class GreetingController {
         //modelAndView.setViewName("greeting/bye");
         return "greeting/bye";
     }
-
-
 
 
 

@@ -26,7 +26,7 @@ public class CompanyService {
 
         return companyRepository.findById(id).map(company -> {
             applicationEventPublisher.publishEvent(new EntityEvent(company, AccessType.DELETE));
-            return new CompanyReadDto(company.getId());
+            return new CompanyReadDto(company.getId(), null);
         });
     }
 }
