@@ -47,6 +47,7 @@ spring:
       format_sql: true
       dialect: org.hibernate.dialect.PostgreSQLDialect
       hbm2ddl.auto: validate
+    open-in-view: false
 
 
 
