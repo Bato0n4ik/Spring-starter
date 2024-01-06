@@ -2,11 +2,13 @@ package com.dmdev.spring.database.querydsl;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.Expressions;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,11 +28,15 @@ public class QPredicates {
     }
 
     public Predicate build(){
-        return ExpressionUtils.allOf(predicates);
+        return Optional.ofNullable(ExpressionUtils.allOf(predicates))
+                .orElseGet(()-> Expressions.asBoolean(true).isTrue()); // для пустого предиката, если 0 переменных
+                                                                                // установлено в наше динамическое where
+                                                                                //чтобы не было ошибки
     }
 
     public Predicate buildOr(){
-        return ExpressionUtils.anyOf(predicates);
+        return Optional.ofNullable(ExpressionUtils.anyOf(predicates))
+                .orElseGet(()-> Expressions.asBoolean(true).isTrue());
     }
 
 }
