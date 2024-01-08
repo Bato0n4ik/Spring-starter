@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import java.util.Map;
 //@Data
 //@NoArgsConstructor
 //@ConstructorBinding
+@Validated
 @ConfigurationProperties(prefix = "db")
 public record DatabaseProperties(
     String username,

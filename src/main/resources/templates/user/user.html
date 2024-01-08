@@ -5,7 +5,7 @@
     <title>User</title>
 </head>
 <body>
-    <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+    <form th:action="@{/users/{userId}/update(userId=${user.id})}" enctype="multipart/form-data" method="post" th:object="${user}">
         <label th:for="username">Username:
             <input id="username" name="username" type="text" th:value="*{username}">
         </label></br>
@@ -17,6 +17,12 @@
         </label></br>
         <label th:for="lastname">Lastname:
             <input id="lastname" name="lastname" type="text" th:value="*{lastname}">
+        </label></br>
+        <div th:if="${user.image}">
+            <img th:src=@{/api/v1/users/{userId}/avatar(userId=${user.id})}" alt="user image">
+        </div>
+        <label th:for="image">Image:
+            <input id="image" name="image" type="file">
         </label></br>
         <div th:each="role: ${roles}">
             <input id="${role}" name="role" type="radio" value="${role}" th:checked="${role == user.role}">
