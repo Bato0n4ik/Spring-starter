@@ -15,8 +15,4 @@ public class LoginController {
         return "user/login";
     }
 
-    @PostMapping("/login")
-    public String login(Model model, @ModelAttribute LoginDto login){
-        return "redirect:/login";
-    }
 }
