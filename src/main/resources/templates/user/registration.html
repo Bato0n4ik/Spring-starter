@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
@@ -8,6 +8,9 @@
 <form action="/users" enctype="multipart/form-data" method="post" th:object="${user}">
   <label th:for="username">Username:
     <input id="username" name="username" type="text" th:value="*{username}">
+  </label></br>
+  <label th:for="rawPassword">Password:
+    <input id="rawPassword" name="rawPassword" type="password">
   </label></br>
   <label th:for="birthDate">BirthDate:
     <input id="birthDate" name="birthDate" type="text" th:value="*{birthDate}">

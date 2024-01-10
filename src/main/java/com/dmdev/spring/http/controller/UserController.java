@@ -69,8 +69,11 @@ public class UserController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             //добавляем в сессию (SessionScope) атрбуты
             // чтобы заполненные поля сохранялись в случии ошибки валидации!
+            return "redirect:/users/registration";
         }
-        return "redirect:/users/" + userService.create(user).getId();
+
+        userService.create(user);
+        return "redirect:/users";
     }
 
     //@PatchMapping("{id}")
