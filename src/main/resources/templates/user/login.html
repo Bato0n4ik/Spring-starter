@@ -5,10 +5,12 @@
         <title>Login</title>
     </head>
     <body>
-    <div style="color:red" th:if="${param.error}">
-        <h2>Bad credentials!</h2>
-    </div>
-        <form action ="/login" method = "POST">
+        <form action ="@{/login}" method = "POST">
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/> -->
+
+            <div style="color:red" th:if="${param.error}">
+                <h2>Bad credentials!</h2>
+            </div>
             <label for="username">Username:
                 <input id="username" type="text" name="username">
             </label><br>

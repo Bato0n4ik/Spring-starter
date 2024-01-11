@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice(basePackages = "com.dmdev.spring.http.controller")
 public class ControllerExceptionHandler{
 
-    @ExceptionHandler(Exception.class)
-    public String handleExceptions(Exception exception){
-        log.error("Failed to return response", exception);
-        return "error/error500";
-    }
+   // @ExceptionHandler(Exception.class)
+   // public String handleExceptions(Exception exception){
+   //     log.error("Failed to return response", exception);
+   //     return "error/error500";
+   // }
 }
