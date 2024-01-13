@@ -26,7 +26,7 @@ logging:
     com.dmdev.spring.database.pool: INFO
     org.springframework.jdbc.core: TRACE
   file:
-    name: dmdev.log
+    name: andr.log
     path: /
 
 spring:
@@ -48,7 +48,15 @@ spring:
       dialect: org.hibernate.dialect.PostgreSQLDialect
       hbm2ddl.auto: validate
     open-in-view: false
-
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 542701390779-1glojvf2bm6pa5euik6hn68bnq0vfkbr.apps.googleusercontent.com
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
+            client-secret: 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
+            scope: openid, email, profile
 
 
 
