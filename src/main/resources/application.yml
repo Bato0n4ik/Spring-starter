@@ -58,5 +58,14 @@ spring:
             client-secret: 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
             scope: openid, email, profile
 
+  messages:
+   basename: messages
 
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: 542701390779-1glojvf2bm6pa5euik6hn68bnq0vfkbr.apps.googleusercontent.com
+      client-secret: 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
+      scopes: openid, email, profile
+    oauth2-redirect-url: http://localhost:8080/swagger-ui/oauth2code-redirect.html
 
