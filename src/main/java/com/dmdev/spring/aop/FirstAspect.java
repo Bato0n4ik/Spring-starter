@@ -2,24 +2,18 @@ package com.dmdev.spring.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Aspect
 @Slf4j
 @Component
+@Order(1)
 public class FirstAspect {
 
-    @Pointcut(value = "@within(org.springframework.stereotype.Controller)")
-    public void isControllerLayer(){
-    }
 
-    @Pointcut(value="within(com.dmdev.spring.service.*Service)")
-    public void isServiceLayer(){
-    }
 
     /*
         this - check AOP proxy class type
@@ -30,15 +24,16 @@ public class FirstAspect {
     public void isRepositoryLayer(){
     }
 
-    @Pointcut("isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
+
+    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @annotation(org.springframework.web.bind.annotation.GetMapping)")
     public void isMethodLayer(){
     }
 
-    @Pointcut("isControllerLayer() && args(org.springframework.ui.Model,..)")
+    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && args(org.springframework.ui.Model,..)")
     public void hasModelParam(){
     }
 
-    @Pointcut("isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo, ..)")
+    @Pointcut("com.dmdev.spring.aop.CommonPointcuts.isControllerLayer() && @args(com.dmdev.spring.validation.UserInfo, ..)")
     public void hasUserInfoParamAnnotation(){
     }
 
@@ -66,5 +61,20 @@ public class FirstAspect {
                            Transactional transactional){
         log.debug("invoked findById method in {} class with id {}", service, id);
 
+    }
+
+    @AfterReturning(value = "anyFindByIdServiceMethod() && target(service)", returning = "result")
+    public void addLoggingAfterMethodResult(Object result, Object service){
+        log.debug("after returning - invoked findById method in {} class with result: {}", service, result);
+    }
+
+    @AfterThrowing(value = "anyFindByIdServiceMethod() && target(service)", throwing = "exc")
+    public void addLoggingAfterThrowing(Throwable exc, Object service){
+        log.debug("after throwing - invoked findById method in class {}, exception class: {}, message exception: {}", service,exc.getMessage(), exc.getMessage());
+    }
+
+    @After("anyFindByIdServiceMethod() && target(service)")
+    public void addLoggingFinally(Object service){
+        log.debug("after (finally) - invoked findById method in class {}", service);
     }
 }
